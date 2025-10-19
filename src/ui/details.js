@@ -5,6 +5,7 @@ import noImagePlayer from '../image/no_image_player.png';
 import noImageFilm from '../image/no_image_film.png';
 import { ui } from './main.js';
 import { showLoader } from './Loader.js';
+import {getGenreNameById} from './main.js';
 
 
 const IMG_BASE = 'https://image.tmdb.org/t/p/w200';//תמונה של האתר
@@ -18,7 +19,7 @@ export async function renderMovieDetails(data) {
     ui.status.innerHTML = '';
     ui.resultsContainer.classList.add("hidden");
     await showLoader(ui.details);//האנימציה
-    //console.log(data);
+    console.log(data);
     // אלמנט ראשי
     const movieContainer = document.createElement('div');
     movieContainer.classList.add('movie-container');
@@ -45,8 +46,14 @@ export async function renderMovieDetails(data) {
     const detailsWrapper = document.createElement('div');
     detailsWrapper.classList.add('details-wrapper');
 
+    //כותרת הסרט
     const title = document.createElement('h2');
     title.textContent = data.title;
+
+    //קטגורית הסרט
+    const genre_ids = data.genre_ids;
+    const genreNames = document.createElement('h3');
+    genreNames.textContent = genre_ids.map(id => getGenreNameById(Number(id))).filter(Boolean);//מחזיר בשמות את המספרים של הקטגוריות
 
     const overviewTitle = document.createElement('h3');
     overviewTitle.textContent = 'תקציר:';
@@ -84,6 +91,7 @@ export async function renderMovieDetails(data) {
 
     //הכנסה לדף את החלק העליון
     detailsWrapper.appendChild(title);
+    detailsWrapper.appendChild(genreNames);
     detailsWrapper.appendChild(overviewTitle);
     detailsWrapper.appendChild(overview);
     detailsWrapper.appendChild(info);
@@ -158,7 +166,7 @@ function renderOtherMovies(moviesArray) {
     container.classList.add("movies-container");
 
     const mainMovies = moviesArray.slice(0, 5); // לוקח רק 5 סרטים
-    console.log(mainMovies[0]);
+    //console.log(mainMovies[0]);
 
     mainMovies.forEach(movie => {
         const div = document.createElement("div");
