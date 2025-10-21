@@ -60,12 +60,15 @@ export function getActicTitel() {
 }
 //מעדכנת את הכותרת
 export function setActicTitel(setButtonsactive = null, setMoviesOrTV = null, setGenreHeading = null) {
+    //תת קטגוריה בשביל הכפתורים להעברת עמוד
     if (setButtonsactive) {
         buttonsactive = setButtonsactive;
     }
+    //הקטגוריה
     if (setMoviesOrTV) {
         moviesOrTV = setMoviesOrTV;
     }
+    //הכתרת שתוצג למשתמש
     if (setGenreHeading) {
         genreHeading = setGenreHeading;
     }

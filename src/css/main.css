@@ -17,6 +17,11 @@ body {
   padding: 20px;
 }
 
+/*משמש להסתרת אלמנטים זמנית*/
+.hidden {
+  display: none;
+}
+
 
 /*הרקע של מצב מוחשך*/
 body.dark-mode {
@@ -25,7 +30,7 @@ body.dark-mode {
 }
 
 body.dark-mode #results-container,
-body.dark-mode #results,
+body.dark-mode .results,
 body.dark-mode #details,
 body.dark-mode #pagination,
 body.dark-mode #status {

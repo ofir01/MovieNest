@@ -9,13 +9,8 @@
   margin-top: 1rem;
 }
 
-#results-container.hidden {
-  display: none;
-}
 
-
-
-#results {
+.results {
   position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -33,7 +28,7 @@
   border-radius: 8px;
   overflow: hidden;
   flex-direction: column;
-  height: auto%;
+  height: auto;
   cursor: pointer;
   background: linear-gradient(135deg, #1e3c72, #2a5298, #38b2ac);
   gap: 0.5rem;

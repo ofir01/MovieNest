@@ -1,23 +1,24 @@
 import { api_similar, api_credits, api_search_by_actorId } from '../api/api.js';
-import { saveMovies, deleteMovies } from './favorite.js';
+import { initFavoriteData,saveMovies, deleteMovies } from './favorite.js';
 import { renderMovies } from './render.js';
 import noImagePlayer from '../image/no_image_player.png';
 import noImageFilm from '../image/no_image_film.png';
 import { ui } from './main.js';
 import { showLoader } from './Loader.js';
-import {getGenreNameById} from './main.js';
+import { getGenreNameById } from './main.js';
+
+import { IMG_BASE, IMG_BASE2 } from '../api/api.js';
 
 
-const IMG_BASE = 'https://image.tmdb.org/t/p/w200';//תמונה של האתר
-const IMG_BASE2 = 'https://image.tmdb.org/t/p/w500';//תמונה של האתר
+
 
 
 
 export async function renderMovieDetails(data) {
+    ui.resultsContainer.classList.add("hidden");
     ui.details.innerHTML = '';
     ui.results.innerHTML = '';
     ui.status.innerHTML = '';
-    ui.resultsContainer.classList.add("hidden");
     await showLoader(ui.details);//האנימציה
     console.log(data);
     // אלמנט ראשי
@@ -71,11 +72,11 @@ export async function renderMovieDetails(data) {
     const favoriteBtn = document.createElement('button');
     favoriteBtn.classList.add('favorite-btn');
 
-    let movies = JSON.parse(localStorage.getItem("siteMovies")) || {};
+    let movies = initFavoriteData();
     favoriteBtn.textContent = movies.user.favorites[data.id] ? 'הסר ממועדפים' : 'הוסף למועדפים';
     favoriteBtn.addEventListener('click', () => {
         movies.user.favorites[data.id] ? deleteMovies(data.id) : saveMovies(data);
-        movies = JSON.parse(localStorage.getItem("siteMovies")) || {};
+        movies = initFavoriteData();
         favoriteBtn.textContent = movies.user.favorites[data.id] ? 'הסר ממועדפים' : 'הוסף למועדפים';
     });
 
@@ -132,7 +133,7 @@ function renderCast(castArray) {
         const div = document.createElement("div");
 
         const img = document.createElement("img");
-        img.src = actor.profile_path ? IMG_BASE + actor.profile_path :noImagePlayer;
+        img.src = actor.profile_path ? IMG_BASE + actor.profile_path : noImagePlayer;
         img.alt = actor.name;
 
         img.addEventListener("click", async () => {
@@ -172,7 +173,7 @@ function renderOtherMovies(moviesArray) {
         const div = document.createElement("div");
 
         const img = document.createElement("img");
-        img.src = movie.poster_path ? IMG_BASE + movie.poster_path  : noImageFilm;
+        img.src = movie.poster_path ? IMG_BASE + movie.poster_path : noImageFilm;
         img.alt = movie.title;
 
         img.addEventListener("click", () => {

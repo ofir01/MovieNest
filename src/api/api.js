@@ -1,5 +1,7 @@
 import { getCurrentLanguage } from '../ui/favorite.js'
 
+export const IMG_BASE = 'https://image.tmdb.org/t/p/w200';//תמונה של האתר
+export const IMG_BASE2 = 'https://image.tmdb.org/t/p/w500';//תמונה של האתר
 
 const Api_key = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwM2FkNWYzNGRjMWEwZDZjNWU3MzdmZGE5M2Q4NDQzOSIsIm5iZiI6MTc1NDg5ODIyOS4wODQsInN1YiI6IjY4OTk5ZjM1ODBmNWQwZWZjZWI3MDI5MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.2EeJGSWLQF7LS9mBVThPeHU_FqrlFCNOKZYIR36reNc';
 let language = getCurrentLanguage();

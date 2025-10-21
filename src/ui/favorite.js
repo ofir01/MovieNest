@@ -35,8 +35,8 @@ export function setLanguage(mode) {
 
 //מחזיר את השפה
 export function getCurrentLanguage() {
-  const data = initFavoriteData();
-  return data.settings.language;
+    const data = initFavoriteData();
+    return data.settings.language;
 }
 
 //טעינת מועדפים
@@ -76,8 +76,12 @@ export function clearAllMyFavorites() {
     ui.results.appendChild(clearAllFavorites);
 
     clearAllFavorites.addEventListener('click', () => {
-        localStorage.removeItem('siteMovies');
-        siteMovies = load_favorite();
-        renderMovies(siteMovies, 'delet');
+        let data = initFavoriteData();
+        data.user.favorites = {};
+        localStorage.setItem("siteMovies", JSON.stringify(data));
+        data = load_favorite();
+        renderMovies(data, 'delet');
     });
 }
+
+

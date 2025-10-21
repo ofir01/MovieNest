@@ -3,22 +3,21 @@ import { load_favorite, deleteMovies, clearAllMyFavorites } from './favorite.js'
 import noImageFilm from '../image/no_image_film.png';
 import { getActicTitel, ui } from './main.js';
 import { showLoader } from './Loader.js';
+import { IMG_BASE2 } from '../api/api.js';
 
-
-const IMG_BASE = 'https://image.tmdb.org/t/p/w500';//תמונה של האתר
 
 
 
 // הצגת תוצאות
 export async function renderMovies(data, delet = null) {
+  ui.pagination.classList.add("hidden");
   console.log(data);
   ui.titelActive.innerHTML = '';
   ui.results.innerHTML = '';
   ui.details.innerHTML = '';
   ui.status.textContent = '';
-  ui.pagination.classList.add("hidden");
-  ui.resultsContainer.classList.remove("hidden");
-  await showLoader(ui.results);//האנימציה
+  await showLoader(ui.resultsContainer);//האנימציה
+  ui.resultsContainer.classList.remove('hidden');
 
 
   if (data.results) {
@@ -42,7 +41,8 @@ export async function renderMovies(data, delet = null) {
   ui.titelActive.innerHTML = titel.genreHeading + ' ' + titel.moviesOrTV;
 
 
-  const fragment = document.createDocumentFragment();//קופסא זמנית
+  const fragment = document.createElement('div');//קופסא זמנית
+  fragment.classList.add('results');
 
 
   data.forEach(items => {
@@ -53,7 +53,7 @@ export async function renderMovies(data, delet = null) {
     const img = document.createElement('img');
     img.classList.add('poster');
     img.alt = items.title;
-    img.src = items.poster_path ? IMG_BASE + items.poster_path : noImageFilm;
+    img.src = items.poster_path ? IMG_BASE2 + items.poster_path : noImageFilm;
 
     img.addEventListener('click', () => {
       renderMovieDetails(items);
