@@ -1,5 +1,19 @@
 import { renderMovies } from './render.js';
-import { ui } from './main.js';
+import { ui, setActicTitel } from './setting.js';
+
+
+//===============ארוע להצגת מועדפים=========================
+const favorite = document.getElementById('favorite');
+favorite.addEventListener('click', () => {
+    let movies = load_favorite();
+    renderMovies(movies, 'delet');
+    setActicTitel('favorite');
+    clearAllMyFavorites();
+});
+
+
+
+
 
 
 
@@ -15,6 +29,7 @@ export function initFavoriteData() {
         },
     };
     localStorage.setItem("siteMovies", JSON.stringify(siteMovies));
+    //console.log(siteMovies);
     return siteMovies;
 }
 
@@ -23,6 +38,12 @@ export function setDarkMode(mode) {
     let siteMovies = initFavoriteData();
     siteMovies.settings.darkMode = mode;
     localStorage.setItem("siteMovies", JSON.stringify(siteMovies));
+}
+
+//מחזיר את מצב הרקע
+export function getDarkMode() {
+    const data = initFavoriteData();
+    return data.settings.darkMode;
 }
 
 //משנה את השפה
@@ -42,6 +63,7 @@ export function getCurrentLanguage() {
 //טעינת מועדפים
 export function load_favorite() {
     let siteMovies = initFavoriteData();
+    console.log(siteMovies.user.favorites);
     return siteMovies = Object.values(siteMovies.user.favorites); // המרה למערך של הערכים
 }
 

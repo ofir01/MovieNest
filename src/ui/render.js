@@ -1,16 +1,13 @@
-import { renderMovieDetails } from './details.js';
-import { load_favorite, deleteMovies, clearAllMyFavorites } from './favorite.js';
+import {ui,getActicTitel} from './setting.js';
+import {pagination} from './pagination.js';
+import {showLoader} from './Loader.js';
+import {IMG_BASE2} from '../api/api.js';
 import noImageFilm from '../image/no_image_film.png';
-import { getActicTitel, ui } from './main.js';
-import { showLoader } from './Loader.js';
-import { IMG_BASE2 } from '../api/api.js';
-
-
-
+import {renderMovieDetails} from './details.js';
+import {deleteMovies,load_favorite,clearAllMyFavorites,} from './favorite.js';
 
 // הצגת תוצאות
 export async function renderMovies(data, delet = null) {
-  ui.pagination.classList.add("hidden");
   console.log(data);
   ui.titelActive.innerHTML = '';
   ui.results.innerHTML = '';
@@ -31,11 +28,11 @@ export async function renderMovies(data, delet = null) {
 
   if (!data || data.length === 0) {
     ui.results.innerHTML = 'לא נמצאו תוצאות.';
-    ui.pagination.classList.add("hidden");
+    pagination.classList.add("hidden");
     return;
   }
 
-  ui.pagination.classList.remove("hidden");
+  pagination.classList.remove("hidden");
 
   const titel = getActicTitel();
   ui.titelActive.innerHTML = titel.genreHeading + ' ' + titel.moviesOrTV;
@@ -81,10 +78,8 @@ export async function renderMovies(data, delet = null) {
 
 
 
-
-    //הסרת מועדף אחד בלבד
     if (delet == 'delet') {
-      ui.pagination.classList.add("hidden");
+      pagination.classList.add("hidden");
       const clear = document.createElement('button');
       clear.classList.add('clear');
       clear.textContent = 'הסר';

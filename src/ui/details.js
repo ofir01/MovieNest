@@ -1,17 +1,12 @@
-import { api_similar, api_credits, api_search_by_actorId } from '../api/api.js';
-import { initFavoriteData,saveMovies, deleteMovies } from './favorite.js';
-import { renderMovies } from './render.js';
-import noImagePlayer from '../image/no_image_player.png';
 import noImageFilm from '../image/no_image_film.png';
-import { ui } from './main.js';
+import noImagePlayer from '../image/no_image_player.png';
+
+import { ui, getGenreNameById } from './setting.js';
 import { showLoader } from './Loader.js';
-import { getGenreNameById } from './main.js';
-
-import { IMG_BASE, IMG_BASE2 } from '../api/api.js';
-
-
-
-
+import { IMG_BASE, IMG_BASE2, api_credits, api_similar, api_search_by_actorId } from '../api/api.js';
+import { initFavoriteData, saveMovies, deleteMovies } from './favorite.js';
+import { renderMovies } from './render.js';
+import { setActicTitel } from './setting.js';
 
 
 export async function renderMovieDetails(data) {
@@ -138,6 +133,7 @@ function renderCast(castArray) {
 
         img.addEventListener("click", async () => {
             const movies = await api_search_by_actorId(actor.id);
+            setActicTitel('', '', actor.name);
             renderMovies(movies);
         });
 
